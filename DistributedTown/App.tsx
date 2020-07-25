@@ -27,6 +27,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Geolocation from './src/geolocation/geolocation';
 import magic from './src/magic';
+import Avatar from './src/avatar/avatar';
+
 declare const global: {HermesInternal: null | {}};
 
 const App = () => {
@@ -38,8 +40,7 @@ const App = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Geolocation />
-          <Text>fjdsoifjoisdfmoi</Text>
+          <Avatar />
         </ScrollView>
       </SafeAreaView>
     </>

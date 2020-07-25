@@ -29,7 +29,7 @@ const Geolocation: React.FunctionComponent<props> = (props) => {
 
 const styles = StyleSheet.create({
   map: {
-    height: 500,
+    height: Dimensions.get('screen').height,
   },
 });
 
