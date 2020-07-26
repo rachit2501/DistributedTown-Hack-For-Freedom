@@ -19,17 +19,20 @@ import {
 } from 'react-native';
 
 import Geolocation from './src/geolocation/geolocation';
-import magic from './src/magic';
+// import magic from './src/magic';
 import Avatar from './src/avatar/avatar';
 import Navigator from './routes/homeStack';
-import Homepage from './src/homepage/homepage';
+import Skills from './src/skills/Wrapper';
+import Community from './src/skills/components/Community';
+
 declare const global: {HermesInternal: null | {}};
 
 const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <Navigator />
+      {/* <magic.Relayer /> */}
+      <Skills />
     </>
   );
 };

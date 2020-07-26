@@ -9,7 +9,6 @@ async function init() {
     chainId: 4,
     readProvider: magic.rpcProvider,
   });
-  console.log(org);
   const appAddress = await org.app();
 
   // app state

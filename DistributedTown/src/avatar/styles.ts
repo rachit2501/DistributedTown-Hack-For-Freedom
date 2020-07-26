@@ -2,7 +2,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    width: 375,
+    width: Dimensions.get('screen').width + 50,
     height: 11212,
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
 
   bg___2_1__avatar_nickname: {
     top: 0,
-    left: -170,
-    width: Dimensions.get('window').width,
+    left: 0,
+    width: Dimensions.get('screen').width + 50,
     height: Dimensions.get('window').height,
     backgroundColor: 'rgba(255,255,255,255)',
     zIndex: -10,
@@ -46,18 +46,18 @@ const styles = StyleSheet.create({
   },
   path_171: {
     top: 0,
-    left: 11,
+    left: 0,
     width: 31.5361328125,
     height: 31.535293579102,
   },
   path_177: {
-    top: -1611.67358398438,
+    top: -1111.67358398438,
     left: 0.3408203125,
     width: 580.412109375,
     height: 578.13726806641,
   },
   bg: {
-    top: -1215,
+    top: -115,
     left: 147,
     width: 77,
     height: 25,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     color: '#efc800',
   },
   next: {
-    top: -1215,
+    top: -925,
     left: 167,
     width: 41,
     height: 17,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   nickname: {
-    top: -1535.04815673828,
+    top: -1135.04815673828,
     left: 109,
     width: 72,
     height: 19,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     color: '#f08c28',
   },
   rectangle_51: {
-    top: -1495,
+    top: -1125,
     left: 109,
     width: 145,
     height: 21,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   pick_your_name: {
-    top: -1800,
+    top: -1340,
     left: 40,
     width: 255,
     height: 52,

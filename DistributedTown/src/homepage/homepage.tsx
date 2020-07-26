@@ -1,7 +1,7 @@
 import React, {PureComponent, useState, useEffect} from 'react';
 import {Text, View, Image, TextInput} from 'react-native';
 import styles from './styles';
-import magic from '../magic';
+// import magic from '../magic';
 import JSX from './jsx';
 import {ScrollView} from 'react-native-gesture-handler';
 
@@ -13,27 +13,24 @@ const Homepage: React.FunctionComponent<Props> = ({navigation}) => {
   const [email, updateEmail] = useState('');
 
   const pressHandler = async () => {
-    const auth = await magic.auth.loginWithMagicLink({email});
-    console.log(auth);
-    if (auth) navigation.navigate();
+    // const auth = await magic.auth.loginWithMagicLink({email});
+    // if (auth)
+    navigation.navigate('Avatar');
   };
 
   useEffect(() => {
-    console.log('Here');
-    magic.user
-      .isLoggedIn()
-      .then((res) => {
-        console.log(res);
-        if (res) navigation.navigate('Avatar');
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    // magic.user
+    //   .isLoggedIn()
+    //   .then((res) => {
+    //     if (res) navigation.navigate('Avatar');
+    //   })
+    //   .catch((e) => {
+    //     // console.log(e);
+    //   });
   }, []);
 
   return (
     <ScrollView>
-      <magic.Relayer />
       <View style={styles['content_container']}>
         <JSX />
         <View style={styles['distributed_town']}>
