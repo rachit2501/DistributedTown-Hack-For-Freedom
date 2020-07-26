@@ -7,18 +7,18 @@ const styles = StyleSheet.create({
   },
   viewPager: {
     flex: 2,
-    left: Dimensions.get('screen').width / 4,
+    left: Dimensions.get('screen').width / 4 + 10,
     top: -30,
     padding: 10,
   },
   viewarea: {
-    top: '-28%',
+    top: '-32%',
     left: '20%',
   },
   fixToText: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    top: '-60%',
+    top: '-67%',
   },
   button: {
     alignItems: 'center',
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '20%',
     left: '40%',
-    top: '-5%',
+    top: '-15%',
   },
 });
 
