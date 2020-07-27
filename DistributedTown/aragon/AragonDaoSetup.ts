@@ -7,6 +7,18 @@ const EthProvider = require('eth-provider');
 const Ora = require('ora');
 const HDWallet = require('@truffle/hdwallet-provider');
 
+/* **********switching to our own application *************** */
+
+const distTownAbi = require('./abi/distTown.json');
+const distAppId = Namehash.hash('dito.open.aragonpm.eth');
+const distTownImpt = '0x773095aF2c6Ac0881d09D71D213ebc50634b2309';
+const distTownBytecode = require('./bytecode/distTown.json');
+const distRole =
+  '0b730c1433c3a3152b1f50ab669aada75aa49a48a8966808824242873a33a877';
+
+// https://emn178.github.io/online-tools/keccak_256.html
+/* ************************************************** */
+
 const aclAbi = require('./abi/acl.json');
 const bareTemplateAbi = require('./abi/bareTemplate.json');
 const financeAbi = require('./abi/finance.json');
@@ -138,7 +150,7 @@ async function Aragon() {
       ethersSigner,
     );
 
-    const detoSpinner = Ora('Deploying Deto Token...').start();
+    const detoSpinner = Ora('Deploying Token...').start();
 
     const detoContract = await detoFactory.deploy(
       MINIME_FACTORY_ADDRESS,
@@ -150,7 +162,7 @@ async function Aragon() {
       true,
     );
 
-    detoSpinner.succeed(`deto Token Deployed ${detoContract.address}`);
+    detoSpinner.succeed(`Token Deployed ${detoContract.address}`);
 
     // Instanciate the kernel contract so we can get the ACL and install apps
     const kernelContract = new Ethers.Contract(
@@ -160,6 +172,31 @@ async function Aragon() {
     );
     const aclAddress = await kernelContract.acl();
     const aclContract = new Ethers.Contract(aclAddress, aclAbi, ethersSigner);
+
+    /* Installing our own application here **********************************************/
+
+    const distTownSpinner = Ora('Installing DistTown App').start();
+    const distTownInstallTx = await kernelContract[
+      'newAppInstance(bytes32,address)'
+    ](distAppId, distTownImpt);
+
+    const distContractAddress = await getAppAddress(
+      'NewAppProxy',
+      kernelContract,
+      distTownInstallTx.hash,
+    );
+
+    const distContract = new Ethers.Contract(
+      distContractAddress,
+      distTownAbi,
+      ethersSigner,
+    );
+    const distInitializeTx = await distContract.initialize(9200);
+    await distInitializeTx.wait();
+
+    distTownSpinner.succeed(`dist app installed: ${distContractAddress}`);
+
+    /* Installtaion done**************************************************** */
 
     const TokenManagerSpinner = Ora('Installing Token Manager...').start();
 

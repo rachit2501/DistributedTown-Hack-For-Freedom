@@ -8,6 +8,9 @@ contract DistTown is AragonApp {
 
      uint256 public value;
 
+    constructor () public {
+        value = 96000;
+    }
     // wallet, skills, tokens
 
     struct skills{

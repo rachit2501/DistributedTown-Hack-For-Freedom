@@ -20,10 +20,7 @@ import {
 
 import Geolocation from './src/geolocation/geolocation';
 // import magic from './src/magic';
-import Avatar from './src/avatar/avatar';
 import Navigator from './routes/homeStack';
-import Skills from './src/skills/Wrapper';
-import Community from './src/skills/components/Community';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -32,7 +29,7 @@ const App = () => {
     <>
       <StatusBar barStyle="dark-content" />
       {/* <magic.Relayer /> */}
-      <Skills />
+      <Navigator />
     </>
   );
 };
