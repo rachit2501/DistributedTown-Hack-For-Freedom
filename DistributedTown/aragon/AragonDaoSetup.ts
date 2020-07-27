@@ -1,10 +1,11 @@
+const Web3 = require('web3');
+
 const Chalk = require('chalk');
 const Ethers = require('ethers');
 const Namehash = require('eth-ens-namehash');
 const EthProvider = require('eth-provider');
 const Ora = require('ora');
-const Web3 = require('web3');
-const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWallet = require('@truffle/hdwallet-provider');
 
 const aclAbi = require('./abi/acl.json');
 const bareTemplateAbi = require('./abi/bareTemplate.json');
@@ -57,8 +58,9 @@ const VOTING_CREATE_VOTES_ROLE =
   '0xe7dcd7275292e064d090fbc5f3bd7995be23b502c1fed5cd94cfddbbdcd32bbc';
 
 function bigNum(number) {
-  return Ethers.utils.bigNumberify(number);
+  return Ethers.BigNumber.from(number);
 }
+// console.log(bigNum([123]));
 
 async function getDaoAddress(
   selectedFilter,
@@ -67,8 +69,8 @@ async function getDaoAddress(
 ) {
   return new Promise((resolve, reject) => {
     const desiredFilter = templateContract.filters[selectedFilter]();
-
     templateContract.on(desiredFilter, (contractAddress, event) => {
+      console.log(transactionHash);
       if (event.transactionHash === transactionHash) {
         resolve(contractAddress);
       }
@@ -96,24 +98,27 @@ async function getAppAddress(
 
 async function Aragon() {
   try {
-    const ethersProvider = new HDWalletProvider(
+    const Provider = new HDWallet(
       'call glow acoustic vintage front ring trade assist shuffle mimic volume reject',
       'https://rinkeby.infura.io/v3/3dc8b2e3489c4260904f45a4e74a56dc',
     );
-    const web3 = new Web3(ethersProvider);
-    const account = await web3.eth.getAccounts();
-    const ethersSigner = account[0];
+
+    const ethersProvider = new Ethers.providers.Web3Provider(Provider);
+    const ethersSigner = ethersProvider.getSigner();
+
     // Account used to initialize permissions
-    const dictatorAccount = account[1];
-    console.log('fldksflkj');
+    const dictatorAccount = (await ethersProvider.listAccounts())[0];
+
     console.log(
-      Chalk.cyan(`Using ${dictatorAccount} as account for permissions`),
+      Chalk.cyan(
+        `Using ${dictatorAccount} as account for permissions and ${ethersSigner} as signer`,
+      ),
     );
 
-    const bareTemplateContract = new web3.eth.Contract(
-      bareTemplateAbi,
+    const bareTemplateContract = new Ethers.Contract(
       BARE_TEMPLATE_ADDRESS,
-      {from: ethersSigner},
+      bareTemplateAbi,
+      ethersSigner,
     );
 
     const deploySpinner = Ora('Deploying Dao...').start();

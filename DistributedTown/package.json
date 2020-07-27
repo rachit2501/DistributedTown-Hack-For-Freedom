@@ -12,6 +12,7 @@
   "dependencies": {
     "@aragon/connect": "^0.4.2",
     "@aragon/connect-thegraph-voting": "^0.4.2",
+    "@aragon/os": "^4.4.0",
     "@magic-sdk/react-native": "^2.4.6",
     "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/checkbox": "^0.4.2",
