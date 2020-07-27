@@ -32,7 +32,7 @@ contract DistTown is AragonApp {
 
     // create roles
     bytes32 constant public VotingRight = keccak256("VotingRight");
-    bytes32 constant public RewardRigth = keccak256("RewardRigth");
+    // bytes32 constant public RewardRigth = keccak256("RewardRigth");
 
      function initialize(uint256 _initValue) public onlyInit {
         value = _initValue;
