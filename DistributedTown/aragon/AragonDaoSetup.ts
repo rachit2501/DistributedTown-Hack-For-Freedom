@@ -3,6 +3,8 @@ const Ethers = require('ethers');
 const Namehash = require('eth-ens-namehash');
 const EthProvider = require('eth-provider');
 const Ora = require('ora');
+const Web3 = require('web3');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 const aclAbi = require('./abi/acl.json');
 const bareTemplateAbi = require('./abi/bareTemplate.json');
@@ -94,19 +96,24 @@ async function getAppAddress(
 
 async function Aragon() {
   try {
-    const ethersProvider = new Ethers.providers.Web3Provider(EthProvider());
-    const ethersSigner = ethersProvider.getSigner();
-
+    const ethersProvider = new HDWalletProvider(
+      'call glow acoustic vintage front ring trade assist shuffle mimic volume reject',
+      'https://rinkeby.infura.io/v3/3dc8b2e3489c4260904f45a4e74a56dc',
+    );
+    const web3 = new Web3(ethersProvider);
+    const account = await web3.eth.getAccounts();
+    const ethersSigner = account[0];
     // Account used to initialize permissions
-    const dictatorAccount = (await ethersProvider.listAccounts())[0];
+    const dictatorAccount = account[1];
+    console.log('fldksflkj');
     console.log(
       Chalk.cyan(`Using ${dictatorAccount} as account for permissions`),
     );
 
-    const bareTemplateContract = new Ethers.Contract(
-      BARE_TEMPLATE_ADDRESS,
+    const bareTemplateContract = new web3.eth.Contract(
       bareTemplateAbi,
-      ethersSigner,
+      BARE_TEMPLATE_ADDRESS,
+      {from: ethersSigner},
     );
 
     const deploySpinner = Ora('Deploying Dao...').start();
@@ -363,3 +370,5 @@ async function Aragon() {
     console.log(e);
   }
 }
+
+Aragon();
